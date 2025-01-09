@@ -1,6 +1,7 @@
 {
   "name": "map-generator",
   "version": "1.0.0",
+  "homepage": "https://mapgenerator.nat20.no",
   "description": "a 2d map generator using WFC (Wave Function Collapse)",
   "main": "index.js",
   "scripts": {
