@@ -113,6 +113,8 @@ export const collapseNextCell = () => {
 
 export const collapseAll = () => {
   if (!grid.cells.some((cell) => !cell.collapsed)) {
+    console.log("All cells collapsed");
+    cancelAnimationFrame(animationFrameId);
     return;
   }
 
