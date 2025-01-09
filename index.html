@@ -3,10 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TypeScript</title>
+    <title>Map Generator</title>
+    <link rel="preload" href="/simple/0.png" as="image" />
+    <link rel="preload" href="/simple/1.png" as="image" />
+    <link rel="preload" href="/simple/2.png" as="image" />
+    <link rel="preload" href="/simple/3.png" as="image" />
+    <link rel="preload" href="/simple/4.png" as="image" />
   </head>
   <body>
-    <h1>Hello World</h1>
+    <canvas id="map" style="background-color: rgb(198, 198, 198)"></canvas>
+    <div id="controls">
+      <button id="collapseNext">Collapse Next</button>
+      <button id="collapseAll">Collapse All</button>
+      <button id="reset">Reset</button>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
