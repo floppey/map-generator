@@ -136,4 +136,5 @@ document.getElementById("collapseAll")?.addEventListener("click", () => {
 document.getElementById("reset")?.addEventListener("click", () => {
   cancelAnimationFrame(animationFrameId);
   grid = new Grid(GRID_SIZE, uniqueTiles);
+  draw();
 });
