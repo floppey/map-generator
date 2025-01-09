@@ -111,10 +111,12 @@ export const collapseNextCell = () => {
 };
 
 export const collapseAll = () => {
-  if (grid.cells.some((cell) => !cell.collapsed)) {
-    collapseNextCell();
-    draw();
+  if (!grid.cells.some((cell) => !cell.collapsed)) {
+    return;
   }
+
+  collapseNextCell();
+  draw();
   requestAnimationFrame(collapseAll);
 };
 
