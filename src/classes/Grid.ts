@@ -1,3 +1,4 @@
+import { draw } from "../main";
 import { Cell } from "./Cell";
 import { Tile } from "./Tile";
 
@@ -35,6 +36,12 @@ export class Grid {
     // Select a random cell from the least entropy cells
     const selectedCell =
       leastEntropyCells[Math.floor(Math.random() * leastEntropyCells.length)];
+
+    if (selectedCell.options.length === 0) {
+      console.log("No options left", selectedCell);
+      draw();
+      throw new Error("No options left");
+    }
 
     // Collapse the cell to a random option
     selectedCell.collapse();

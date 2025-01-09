@@ -1,3 +1,4 @@
+import { reverseString } from "../util/reverseString";
 import { Grid } from "./Grid";
 import { Tile } from "./Tile";
 
@@ -53,25 +54,29 @@ export class Cell {
     if (neighbors.top?.collapsed) {
       this.options = this.options.filter(
         (option) =>
-          option.sockets.top === neighbors.top?.collapsed?.sockets.bottom
+          option.sockets.top ===
+          reverseString(neighbors.top?.collapsed?.sockets.bottom)
       );
     }
     if (neighbors.right?.collapsed) {
       this.options = this.options.filter(
         (option) =>
-          option.sockets.right === neighbors.right?.collapsed?.sockets.left
+          option.sockets.right ===
+          reverseString(neighbors.right?.collapsed?.sockets.left)
       );
     }
     if (neighbors.bottom?.collapsed) {
       this.options = this.options.filter(
         (option) =>
-          option.sockets.bottom === neighbors.bottom?.collapsed?.sockets.top
+          option.sockets.bottom ===
+          reverseString(neighbors.bottom?.collapsed?.sockets.top)
       );
     }
     if (neighbors.left?.collapsed) {
       this.options = this.options.filter(
         (option) =>
-          option.sockets.left === neighbors.left?.collapsed?.sockets.right
+          option.sockets.left ===
+          reverseString(neighbors.left?.collapsed?.sockets.right)
       );
     }
   }

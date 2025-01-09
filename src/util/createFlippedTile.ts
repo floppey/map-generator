@@ -1,5 +1,6 @@
 import { Tile } from "../classes/Tile";
 import { FlipDirection } from "../types/index";
+import { reverseString } from "./reverseString";
 
 export const createFlippedTile = (tile: Tile, dir: FlipDirection): Tile => {
   const { top, right, bottom, left } = tile.sockets;
@@ -9,16 +10,22 @@ export const createFlippedTile = (tile: Tile, dir: FlipDirection): Tile => {
     throw new Error("Tile already flipped");
   }
 
-  const flippedTile = new Tile(
-    image,
-    {
-      top: dir === "horizontal" ? top : bottom,
-      right: dir === "vertical" ? left : right,
-      bottom: dir === "horizontal" ? bottom : top,
-      left: dir === "vertical" ? right : left,
+  const newSockets = {
+    horizontal: {
+      top: reverseString(bottom),
+      right: reverseString(right),
+      bottom: reverseString(top),
+      left: reverseString(left),
     },
-    rotation
-  );
+    vertical: {
+      top: reverseString(top),
+      right: reverseString(left),
+      bottom: reverseString(bottom),
+      left: reverseString(right),
+    },
+  };
+
+  const flippedTile = new Tile(image, newSockets[dir], rotation, dir);
 
   return flippedTile;
 };
