@@ -61,6 +61,7 @@ canvas.height = CANVAS_SIZE;
 canvas.width = CANVAS_SIZE;
 
 let grid = new Grid(GRID_SIZE, uniqueTiles);
+let animationFrameId = -1;
 
 const images: Record<string, HTMLImageElement> = {};
 
@@ -117,7 +118,7 @@ export const collapseAll = () => {
 
   collapseNextCell();
   draw();
-  requestAnimationFrame(collapseAll);
+  animationFrameId = requestAnimationFrame(collapseAll);
 };
 
 document.getElementById("collapseNext")?.addEventListener("click", () => {
@@ -126,9 +127,11 @@ document.getElementById("collapseNext")?.addEventListener("click", () => {
 });
 
 document.getElementById("collapseAll")?.addEventListener("click", () => {
+  cancelAnimationFrame(animationFrameId);
   collapseAll();
 });
 
 document.getElementById("reset")?.addEventListener("click", () => {
+  cancelAnimationFrame(animationFrameId);
   grid = new Grid(GRID_SIZE, uniqueTiles);
 });
