@@ -1,30 +1,13 @@
 import { Grid } from "./classes/Grid";
 import { Tile } from "./classes/Tile";
+import { dungeonTiles } from "./data/dungeonTiles";
 import { createFlippedTile } from "./util/createFlippedTile";
 import { createRotatedTile } from "./util/createRotatedTile";
 import { flipCtx } from "./util/flipCtx";
 
-const tiles: Tile[] = [
-  new Tile("0.png", { top: "AAA", right: "AAA", bottom: "AAA", left: "AAA" }),
-  new Tile("1.png", { top: "ABA", right: "AAA", bottom: "ABA", left: "AAA" }),
-  new Tile("2.png", { top: "ABA", right: "ABA", bottom: "ABA", left: "ABA" }),
-  new Tile("3.png", { top: "ABA", right: "ABA", bottom: "AAA", left: "ABA" }),
-  new Tile("4.png", { top: "ABA", right: "AAA", bottom: "AAA", left: "ABA" }),
-  new Tile("5.png", { top: "AAA", right: "AAA", bottom: "AAA", left: "ABA" }),
-  new Tile("6.png", { top: "AAA", right: "AAB", bottom: "AAA", left: "AAB" }),
-  new Tile("7.png", { top: "AAA", right: "BAB", bottom: "AAA", left: "AAB" }),
-  new Tile("8.png", { top: "AAA", right: "BAB", bottom: "AAA", left: "BAB" }),
-  new Tile("9.png", { top: "AAA", right: "AAA", bottom: "AAA", left: "BAB" }),
-  new Tile("10.png", { top: "AAA", right: "ABA", bottom: "AAA", left: "BAB" }),
-  new Tile("11.png", { top: "ABA", right: "AAA", bottom: "AAA", left: "BAB" }),
-  new Tile("12.png", { top: "AAA", right: "ABA", bottom: "AAA", left: "AAB" }),
-  new Tile("13.png", { top: "AAA", right: "AAA", bottom: "ABA", left: "AAB" }),
-  new Tile("14.png", { top: "ABA", right: "AAA", bottom: "ABA", left: "AAB" }),
-];
-
 const rotatedTiles: Tile[] = [];
 
-tiles.forEach((original) => {
+dungeonTiles.forEach((original) => {
   const rotate90 = createRotatedTile(original);
   const rotate180 = createRotatedTile(rotate90);
   const rotate270 = createRotatedTile(rotate180);
@@ -76,7 +59,7 @@ if (!ctx || !debugCtx) {
 
 canvas.height = CANVAS_SIZE;
 canvas.width = CANVAS_SIZE;
-debugCanvas.height = 1800;
+debugCanvas.height = uniqueTiles.length * 100;
 debugCanvas.width = CANVAS_SIZE;
 
 let grid = new Grid(GRID_SIZE, uniqueTiles);
@@ -84,9 +67,9 @@ let animationFrameId = -1;
 
 const images: Record<string, HTMLImageElement> = {};
 
-tiles.forEach((tile) => {
+dungeonTiles.forEach((tile) => {
   const img = new Image();
-  img.src = `./simple/${tile.image}`;
+  img.src = `.${tile.image}`;
   images[tile.image] = img;
 });
 
