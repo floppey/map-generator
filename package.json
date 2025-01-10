@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "add-domain": "echo mapgenerator.nat20.no > dist/CNAME",
+    "deploy": "npm run add-domain && gh-pages -d dist",
+    "bd": "npm run build && npm run deploy"
   },
   "author": "",
   "license": "ISC",
