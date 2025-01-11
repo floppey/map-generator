@@ -282,8 +282,13 @@ export const draw = () => {
 };
 
 export const collapseNextCell = () => {
-  grid.collapseNextCell();
-  grid.evaluate();
+  const collapsed = grid.collapseNextCell();
+  const neighbors = collapsed.getNeighbors();
+  Object.values(neighbors).forEach((neighbor) => {
+    if (neighbor && !neighbor.collapsed) {
+      neighbor.evaluate();
+    }
+  });
 };
 
 export const collapseAll = () => {

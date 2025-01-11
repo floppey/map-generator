@@ -45,6 +45,8 @@ export class Grid {
 
     // Collapse the cell to a random option
     selectedCell.collapse();
+
+    return selectedCell;
   }
 
   evaluate() {
