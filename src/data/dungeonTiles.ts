@@ -13,6 +13,24 @@ export const dungeonTiles: Tile[] = [
     bottom: "AAA",
     left: "AAA",
   }),
+  new Tile("/dungeon/0-dupe.png", {
+    top: "AAA",
+    right: "AAA",
+    bottom: "AAA",
+    left: "AAA",
+  }),
+  new Tile("/dungeon/0-dupe-2.png", {
+    top: "AAA",
+    right: "AAA",
+    bottom: "AAA",
+    left: "AAA",
+  }),
+  new Tile("/dungeon/0.png", {
+    top: "AAA",
+    right: "AAA",
+    bottom: "AAA",
+    left: "AAA",
+  }),
   new Tile("/dungeon/1.png", {
     top: "BBB",
     right: "BAB",
