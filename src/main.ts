@@ -277,6 +277,9 @@ export const draw = () => {
         // Draw without rotation
         ctx.drawImage(img, x, y, CELL_SIZE, CELL_SIZE);
       }
+    } else if (cell.options.length === 0) {
+      ctx.fillStyle = "red";
+      ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
     }
   });
 };
