@@ -44,10 +44,8 @@ symmetricalTiles.forEach((tile) => {
   }
 });
 
-const GRID_SIZE = 20;
-const CANVAS_SIZE = 1000;
-const CELL_SIZE = CANVAS_SIZE / GRID_SIZE;
-
+const CELL_SIZE = 80;
+let grid = new Grid(0, 0, uniqueTiles, true);
 const canvas = document.getElementById("map") as HTMLCanvasElement;
 const debugCanvas = document.getElementById("debug") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d");
@@ -57,12 +55,24 @@ if (!ctx || !debugCtx) {
   throw new Error("Could not get canvas context");
 }
 
-canvas.height = CANVAS_SIZE;
-canvas.width = CANVAS_SIZE;
-debugCanvas.height = uniqueTiles.length * 100;
-debugCanvas.width = CANVAS_SIZE;
+const initializeGrid = () => {
+  const height = Number(
+    (document.getElementById("height") as HTMLInputElement).value
+  );
+  const width = Number(
+    (document.getElementById("width") as HTMLInputElement).value
+  );
+  const allowOpenEdges = (
+    document.getElementById("allowOpenEdges") as HTMLInputElement
+  ).checked;
+  grid = new Grid(width, height, uniqueTiles, allowOpenEdges);
+  canvas.height = height * CELL_SIZE;
+  canvas.width = width * CELL_SIZE;
+};
 
-let grid = new Grid(GRID_SIZE, uniqueTiles);
+debugCanvas.height = uniqueTiles.length * 100;
+debugCanvas.width = 1000;
+
 let animationFrameId = -1;
 
 const images: Record<string, HTMLImageElement> = {};
@@ -75,7 +85,7 @@ dungeonTiles.forEach((tile) => {
 
 const drawDebug = () => {
   // render all possible tiles
-  debugCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  debugCtx.clearRect(0, 0, debugCanvas.width, debugCanvas.height);
 
   const CELL_SIZE = 80;
 
@@ -212,7 +222,7 @@ const drawDebug = () => {
 
 export const draw = () => {
   // Clear the canvas
-  ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Populate the cells
   grid.cells.forEach((cell) => {
@@ -326,24 +336,27 @@ document.getElementById("collapseNext")?.addEventListener("click", () => {
 
 document.getElementById("collapseAllSlow")?.addEventListener("click", () => {
   cancelAnimationFrame(animationFrameId);
+  initializeGrid();
   collapseAll();
   drawDebug();
 });
 
 document.getElementById("collapseAllFast")?.addEventListener("click", () => {
   cancelAnimationFrame(animationFrameId);
+  initializeGrid();
   collapseAllFast();
   drawDebug();
 });
 
 document.getElementById("reset")?.addEventListener("click", () => {
   cancelAnimationFrame(animationFrameId);
-  grid = new Grid(GRID_SIZE, uniqueTiles);
+  initializeGrid();
   draw();
   drawDebug();
 });
 
 setTimeout(() => {
+  initializeGrid();
   draw();
   drawDebug();
 }, 1000);

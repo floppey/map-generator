@@ -6,13 +6,46 @@ export class Grid {
   #tiles: Tile[];
   #cells: Cell[];
 
-  constructor(size: number, tiles: Tile[]) {
+  constructor(
+    width: number,
+    height: number,
+    tiles: Tile[],
+    allowOpenEdges: boolean
+  ) {
     this.#tiles = tiles;
     this.#cells = [];
 
-    for (let x = 0; x < size; x++) {
-      for (let y = 0; y < size; y++) {
-        this.#cells.push(new Cell(this, x, y, [...tiles]));
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        if (
+          !allowOpenEdges &&
+          (x === 0 || y === 0 || x === width - 1 || y === height - 1)
+        ) {
+          let allowedTiles = [...tiles];
+          if (x === 0) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.left === "BBB"
+            );
+          }
+          if (y === 0) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.top === "BBB"
+            );
+          }
+          if (x === width - 1) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.right === "BBB"
+            );
+          }
+          if (y === height - 1) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.bottom === "BBB"
+            );
+          }
+          this.#cells.push(new Cell(this, x, y, [...allowedTiles]));
+        } else {
+          this.#cells.push(new Cell(this, x, y, [...tiles]));
+        }
       }
     }
   }
