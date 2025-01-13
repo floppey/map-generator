@@ -47,27 +47,34 @@ const collapseNextCell = () => {
   });
 };
 
-const collapseAll = () => {
+const collapseAll = async () => {
   if (!grid.cells.some((cell) => !cell.collapsed)) {
     console.log("All cells collapsed");
     cancelAnimationFrame(animationFrameId);
     return;
   }
 
-  collapseNextCell();
-  renderMap(canvas, grid, images);
-  animationFrameId = requestAnimationFrame(collapseAll);
+  setTimeout(() => {
+    collapseNextCell();
+    collapseAll();
+  }, 10);
 };
 
-const collapseAllFast = () => {
-  if (!grid.cells.some((cell) => !cell.collapsed)) {
-    console.log("All cells collapsed");
+const renderLoop = async () => {
+  renderMap(canvas, grid, images);
+  if (grid.cells.some((cell) => !cell.collapsed)) {
+    animationFrameId = requestAnimationFrame(renderLoop);
+  }
+};
 
-    renderMap(canvas, grid, images);
-    return;
+const collapseAllFast = async () => {
+  if (grid.cells.some((cell) => !cell.collapsed)) {
+    setTimeout(() => {
+      collapseNextCell();
+      collapseAllFast();
+    }, 1);
   } else {
-    collapseNextCell();
-    collapseAllFast();
+    console.log("All cells collapsed");
   }
 };
 
@@ -85,21 +92,20 @@ document.getElementById("collapseAllSlow")?.addEventListener("click", () => {
   cancelAnimationFrame(animationFrameId);
   initializeGrid();
   collapseAll();
-  renderAllTiles(debugCanvas, uniqueTiles, images);
+  renderLoop();
 });
 
 document.getElementById("collapseAllFast")?.addEventListener("click", () => {
   cancelAnimationFrame(animationFrameId);
   initializeGrid();
   collapseAllFast();
-  renderAllTiles(debugCanvas, uniqueTiles, images);
+  renderLoop();
 });
 
 document.getElementById("reset")?.addEventListener("click", () => {
   cancelAnimationFrame(animationFrameId);
   initializeGrid();
   renderMap(canvas, grid, images);
-  renderAllTiles(debugCanvas, uniqueTiles, images);
 });
 
 /**
