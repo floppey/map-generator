@@ -50,14 +50,13 @@ const collapseNextCell = () => {
 const collapseAll = async () => {
   if (!grid.cells.some((cell) => !cell.collapsed)) {
     console.log("All cells collapsed");
-    cancelAnimationFrame(animationFrameId);
     return;
   }
 
   setTimeout(() => {
     collapseNextCell();
     collapseAll();
-  }, 10);
+  }, 100);
 };
 
 const renderLoop = async () => {
@@ -72,7 +71,7 @@ const collapseAllFast = async () => {
     setTimeout(() => {
       collapseNextCell();
       collapseAllFast();
-    }, 1);
+    }, 0);
   } else {
     console.log("All cells collapsed");
   }
