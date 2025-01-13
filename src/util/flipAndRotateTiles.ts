@@ -55,7 +55,5 @@ export const flipAndRotateTiles = (tiles: Tile[]): Tile[] => {
     }
   });
 
-  console.log(uniqueTiles);
-
   return uniqueTiles;
 };
