@@ -4,49 +4,25 @@ import { Tile } from "./Tile";
 export class Grid {
   #tiles: Tile[];
   #cells: Cell[];
+  #height: number;
+  #width: number;
+  #allowOpenEdges: boolean;
+  #autoRestart: boolean;
 
   constructor(
     width: number,
     height: number,
     tiles: Tile[],
-    allowOpenEdges: boolean
+    allowOpenEdges: boolean,
+    autoRestart: boolean
   ) {
     this.#tiles = tiles;
     this.#cells = [];
-
-    for (let x = 0; x < width; x++) {
-      for (let y = 0; y < height; y++) {
-        if (
-          !allowOpenEdges &&
-          (x === 0 || y === 0 || x === width - 1 || y === height - 1)
-        ) {
-          let allowedTiles = [...tiles];
-          if (x === 0) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.left === "BBB"
-            );
-          }
-          if (y === 0) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.top === "BBB"
-            );
-          }
-          if (x === width - 1) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.right === "BBB"
-            );
-          }
-          if (y === height - 1) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.bottom === "BBB"
-            );
-          }
-          this.#cells.push(new Cell(this, x, y, [...allowedTiles]));
-        } else {
-          this.#cells.push(new Cell(this, x, y, [...tiles]));
-        }
-      }
-    }
+    this.#height = height;
+    this.#width = width;
+    this.#allowOpenEdges = allowOpenEdges;
+    this.#autoRestart = autoRestart;
+    this.populate();
   }
 
   get tiles() {
@@ -57,7 +33,46 @@ export class Grid {
     return this.#cells;
   }
 
-  collapseNextCell() {
+  populate() {
+    for (let x = 0; x < this.#width; x++) {
+      for (let y = 0; y < this.#height; y++) {
+        if (
+          !this.#allowOpenEdges &&
+          (x === 0 ||
+            y === 0 ||
+            x === this.#width - 1 ||
+            y === this.#height - 1)
+        ) {
+          let allowedTiles = [...this.#tiles];
+          if (x === 0) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.left === "BBB"
+            );
+          }
+          if (y === 0) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.top === "BBB"
+            );
+          }
+          if (x === this.#width - 1) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.right === "BBB"
+            );
+          }
+          if (y === this.#height - 1) {
+            allowedTiles = allowedTiles.filter(
+              (tile) => tile.sockets.bottom === "BBB"
+            );
+          }
+          this.#cells.push(new Cell(this, x, y, [...allowedTiles]));
+        } else {
+          this.#cells.push(new Cell(this, x, y, [...this.#tiles]));
+        }
+      }
+    }
+  }
+
+  collapseNextCell(): Cell {
     // Find the cells with the least entropy
     const sortedCells = this.cells
       .filter((cell) => !cell.collapsed)
@@ -71,7 +86,13 @@ export class Grid {
 
     if (selectedCell.options.length === 0) {
       console.log("No options left", selectedCell);
-      throw new Error("No options left");
+      if (this.#autoRestart) {
+        console.log("Restarting grid");
+        this.populate();
+        return this.collapseNextCell();
+      } else {
+        throw new Error("No options left");
+      }
     }
 
     // Collapse the cell to a random option

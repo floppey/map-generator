@@ -8,7 +8,7 @@ import { flipAndRotateTiles } from "./util/flipAndRotateTiles";
 let animationFrameId = -1;
 const images: Record<string, HTMLImageElement> = {};
 const uniqueTiles = flipAndRotateTiles(dungeonTiles);
-let grid = new Grid(0, 0, uniqueTiles, true);
+let grid = new Grid(0, 0, uniqueTiles, true, true);
 const canvas = document.getElementById("map") as HTMLCanvasElement;
 const debugCanvas = document.getElementById("debugCanvas") as HTMLCanvasElement;
 
@@ -22,7 +22,10 @@ const initializeGrid = () => {
   const allowOpenEdges = (
     document.getElementById("allowOpenEdges") as HTMLInputElement
   ).checked;
-  grid = new Grid(width, height, uniqueTiles, allowOpenEdges);
+  const autoRestart = (
+    document.getElementById("autoRestart") as HTMLInputElement
+  ).checked;
+  grid = new Grid(width, height, uniqueTiles, allowOpenEdges, autoRestart);
   canvas.height = height * CELL_SIZE;
   canvas.width = width * CELL_SIZE;
 };
