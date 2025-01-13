@@ -1,4 +1,3 @@
-import { draw } from "../main";
 import { Cell } from "./Cell";
 import { Tile } from "./Tile";
 
@@ -72,7 +71,6 @@ export class Grid {
 
     if (selectedCell.options.length === 0) {
       console.log("No options left", selectedCell);
-      draw();
       throw new Error("No options left");
     }
 

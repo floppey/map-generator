@@ -11,7 +11,7 @@
     <link rel="preload" href="/simple/4.png" as="image" />
   </head>
   <body>
-    <canvas id="map" style="background-color: rgb(198, 198, 198)"></canvas>
+    <canvas id="map" style="background-color: rgb(198, 198, 198);"></canvas>
     <div id="controls">
       <label>
         Width (Number of tiles)<br/>
@@ -35,12 +35,13 @@
       <button id="collapseAllFast">Collapse All (Fast)</button>
       <button id="reset">Reset</button>
     </div>
-
+    <div id="debug" style="display: none">
     <h2>Debug</h2>
     <p>
       Below is an overview of all possible tiles, with all rotations and mirrors
     </p>
-    <canvas id="debug" style="background-color: rgb(198, 198, 198)"></canvas>
+    <canvas id="debugCanvas" style="background-color: rgb(198, 198, 198)"></canvas>
+  </div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
