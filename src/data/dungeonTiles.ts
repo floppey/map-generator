@@ -1,4 +1,16 @@
 import { Tile } from "../classes/Tile";
+
+const emptyTiles: Tile[] = Array.from(
+  { length: 10 },
+  () =>
+    new Tile("/dungeon/0.png", {
+      top: "AAA",
+      right: "AAA",
+      bottom: "AAA",
+      left: "AAA",
+    })
+);
+
 /**
  * Dungeon tiles
  * Sockets:
@@ -7,36 +19,7 @@ import { Tile } from "../classes/Tile";
  *
  */
 export const dungeonTiles: Tile[] = [
-  new Tile("/dungeon/0.png", {
-    top: "AAA",
-    right: "AAA",
-    bottom: "AAA",
-    left: "AAA",
-  }),
-  new Tile("/dungeon/0.png", {
-    top: "AAA",
-    right: "AAA",
-    bottom: "AAA",
-    left: "AAA",
-  }),
-  new Tile("/dungeon/0.png", {
-    top: "AAA",
-    right: "AAA",
-    bottom: "AAA",
-    left: "AAA",
-  }),
-  new Tile("/dungeon/0.png", {
-    top: "AAA",
-    right: "AAA",
-    bottom: "AAA",
-    left: "AAA",
-  }),
-  new Tile("/dungeon/0.png", {
-    top: "AAA",
-    right: "AAA",
-    bottom: "AAA",
-    left: "AAA",
-  }),
+  ...emptyTiles,
   new Tile("/dungeon/1.png", {
     top: "BBB",
     right: "BAB",
