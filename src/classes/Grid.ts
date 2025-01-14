@@ -46,23 +46,23 @@ export class Grid {
         ) {
           let allowedTiles = [...this.#tiles];
           if (x === 0) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.left === "BBB"
+            allowedTiles = allowedTiles.filter((tile) =>
+              tile.sockets.left.split("").every((char) => char !== "A")
             );
           }
           if (y === 0) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.top === "BBB"
+            allowedTiles = allowedTiles.filter((tile) =>
+              tile.sockets.top.split("").every((char) => char !== "A")
             );
           }
           if (x === this.#width - 1) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.right === "BBB"
+            allowedTiles = allowedTiles.filter((tile) =>
+              tile.sockets.right.split("").every((char) => char !== "A")
             );
           }
           if (y === this.#height - 1) {
-            allowedTiles = allowedTiles.filter(
-              (tile) => tile.sockets.bottom === "BBB"
+            allowedTiles = allowedTiles.filter((tile) =>
+              tile.sockets.bottom.split("").every((char) => char !== "A")
             );
           }
           this.#cells.push(new Cell(this, x, y, [...allowedTiles]));
