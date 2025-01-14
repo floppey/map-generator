@@ -62,53 +62,13 @@ export const renderAllTiles = (
     ctx.font = "10px Arial";
     ctx.fillStyle = "orange";
     ctx.textAlign = "center";
-    ctx.fillText(
-      tile.sockets.top[0],
-      x + CELL_SIZE / 2 - CELL_SIZE / 4,
-      y + 10
-    );
-    ctx.fillText(tile.sockets.top[1], x + CELL_SIZE / 2, y + 10);
-    ctx.fillText(
-      tile.sockets.top[2],
-      x + CELL_SIZE / 2 + CELL_SIZE / 4,
-      y + 10
-    );
-
-    ctx.fillText(
-      tile.sockets.right[0],
-      x + CELL_SIZE - 10,
-      y + CELL_SIZE / 2 - CELL_SIZE / 4
-    );
-    ctx.fillText(tile.sockets.right[1], x + CELL_SIZE - 10, y + CELL_SIZE / 2);
-    ctx.fillText(
-      tile.sockets.right[2],
-      x + CELL_SIZE - 10,
-      y + CELL_SIZE / 2 + CELL_SIZE / 4
-    );
-
-    ctx.fillText(
-      tile.sockets.bottom[0],
-      x + CELL_SIZE / 2 + CELL_SIZE / 4,
-      y + CELL_SIZE - 10
-    );
-    ctx.fillText(tile.sockets.bottom[1], x + CELL_SIZE / 2, y + CELL_SIZE - 10);
-    ctx.fillText(
-      tile.sockets.bottom[2],
-      x + CELL_SIZE / 2 - CELL_SIZE / 4,
-      y + CELL_SIZE - 10
-    );
-
-    ctx.fillText(
-      tile.sockets.left[0],
-      x + 10,
-      y + CELL_SIZE / 2 + CELL_SIZE / 4
-    );
-    ctx.fillText(tile.sockets.left[1], x + 10, y + CELL_SIZE / 2);
-    ctx.fillText(
-      tile.sockets.left[2],
-      x + 10,
-      y + CELL_SIZE / 2 - CELL_SIZE / 4
-    );
+    ctx.fillText(tile.sockets.top, x + CELL_SIZE / 2, y + 10);
+    ctx.textAlign = "right";
+    ctx.fillText(tile.sockets.right, x + CELL_SIZE - 5, y + CELL_SIZE / 2);
+    ctx.textAlign = "center";
+    ctx.fillText(tile.sockets.bottom, x + CELL_SIZE / 2, y + CELL_SIZE - 5);
+    ctx.textAlign = "left";
+    ctx.fillText(tile.sockets.left, x + 5, y + CELL_SIZE / 2);
 
     // Draw rotation and flip
     ctx.font = "10px Arial";
