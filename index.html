@@ -4,15 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Map Generator</title>
-    <link rel="preload" href="/simple/0.png" as="image" />
-    <link rel="preload" href="/simple/1.png" as="image" />
-    <link rel="preload" href="/simple/2.png" as="image" />
-    <link rel="preload" href="/simple/3.png" as="image" />
-    <link rel="preload" href="/simple/4.png" as="image" />
   </head>
   <body>
     <canvas id="map" style="background-color: rgb(198, 198, 198);"></canvas>
     <div id="controls">
+      <label>
+        Tileset<br/>
+        <select id="tileset" value="Dungeon">
+          <option value="Simple">Simple</option>
+          <option value="Grass and dirt">Grass and dirt</option>
+          <option value="Dungeon">Dungeon</option>
+          <option value="Town">Town (wip)</option>
+        </select>
+      </label>
+      <br/>
       <label>
         Width (Number of tiles)<br/>
         <input type="number" id="width" value="10" />

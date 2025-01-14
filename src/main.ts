@@ -1,18 +1,39 @@
 import { Grid } from "./classes/Grid";
 import { CELL_SIZE } from "./constants/index";
 import { dungeonTiles } from "./data/dungeonTiles";
+import { grassAndDirtTiles } from "./data/grassAndDirtTiles";
+import { simpleTiles } from "./data/simpleTiles";
+import { townTiles } from "./data/townTiles";
 import { renderAllTiles } from "./render/renderAllTiles";
 import { renderMap } from "./render/renderMap";
 import { flipAndRotateTiles } from "./util/flipAndRotateTiles";
 
 let animationFrameId = -1;
 const images: Record<string, HTMLImageElement> = {};
-const uniqueTiles = flipAndRotateTiles(dungeonTiles);
+let uniqueTiles = flipAndRotateTiles(townTiles);
 let grid = new Grid(0, 0, uniqueTiles, true, true);
 const canvas = document.getElementById("map") as HTMLCanvasElement;
 const debugCanvas = document.getElementById("debugCanvas") as HTMLCanvasElement;
 
 const initializeGrid = () => {
+  const selectedTiles = (
+    document.getElementById("tileset") as HTMLSelectElement
+  ).value;
+  switch (selectedTiles) {
+    case "Town":
+      uniqueTiles = flipAndRotateTiles(townTiles);
+      break;
+    case "Dungeon":
+      uniqueTiles = flipAndRotateTiles(dungeonTiles);
+      break;
+    case "Grass and dirt":
+      uniqueTiles = flipAndRotateTiles(grassAndDirtTiles);
+      break;
+    case "Simple":
+      uniqueTiles = flipAndRotateTiles(simpleTiles);
+      break;
+  }
+
   const height = Number(
     (document.getElementById("height") as HTMLInputElement).value
   );
@@ -31,7 +52,22 @@ const initializeGrid = () => {
 };
 
 /** Preload images */
+townTiles.forEach((tile) => {
+  const img = new Image();
+  img.src = `.${tile.image}`;
+  images[tile.image] = img;
+});
 dungeonTiles.forEach((tile) => {
+  const img = new Image();
+  img.src = `.${tile.image}`;
+  images[tile.image] = img;
+});
+grassAndDirtTiles.forEach((tile) => {
+  const img = new Image();
+  img.src = `.${tile.image}`;
+  images[tile.image] = img;
+});
+simpleTiles.forEach((tile) => {
   const img = new Image();
   img.src = `.${tile.image}`;
   images[tile.image] = img;

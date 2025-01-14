@@ -34,6 +34,7 @@ export class Grid {
   }
 
   populate() {
+    this.#cells = [];
     for (let x = 0; x < this.#width; x++) {
       for (let y = 0; y < this.#height; y++) {
         if (
@@ -104,6 +105,15 @@ export class Grid {
   evaluate() {
     this.cells.forEach((cell) => {
       cell.evaluate();
+    });
+  }
+
+  render(
+    ctx: CanvasRenderingContext2D,
+    images: Record<string, HTMLImageElement>
+  ) {
+    this.cells.forEach((cell) => {
+      cell.render(ctx, images);
     });
   }
 }

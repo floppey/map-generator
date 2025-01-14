@@ -31,10 +31,10 @@ export const flipAndRotateTiles = (tiles: Tile[]): Tile[] => {
   sortedTiles.forEach((tile) => {
     // Allow multiple "empty" tiles
     if (
-      tile.sockets.top === "AAA" &&
-      tile.sockets.right === "AAA" &&
-      tile.sockets.bottom === "AAA" &&
-      tile.sockets.left === "AAA" &&
+      tile.sockets.top.split("").every((char) => char === "A") &&
+      tile.sockets.right.split("").every((char) => char === "A") &&
+      tile.sockets.bottom.split("").every((char) => char === "A") &&
+      tile.sockets.left.split("").every((char) => char === "A") &&
       tile.rotation === 0 &&
       tile.flipDirection === null
     ) {
